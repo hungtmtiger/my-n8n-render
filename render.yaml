@@ -1,11 +1,12 @@
 services:
   - type: web
     name: n8n
-    env: docker
-    repo: https://github.com/n8n-io/n8n
+    env: docker  # Giữ docker env
+    runtime: image  # ← THÊM: Pull image trực tiếp, không build source
     plan: free
     region: oregon
-    dockerCommand: docker-entrypoint.sh n8n start
+    image:
+      url: docker.io/n8nio/n8n:latest  # ← THÊM: Docker image chính thức n8n
     envVars:
       - key: DB_TYPE
         value: postgresdb
@@ -30,7 +31,7 @@ services:
           name: n8n-db
           property: password
       - key: N8N_HOST
-        value: ${{render.domain}}  # ← XÓA sync: false ở đây
+        value: $$ {N8N_HOST:- $${{render.domain}}}  # ← CẢI TIẾN: Fallback nếu env rỗng
       - key: N8N_PROTOCOL
         value: https
       - key: WEBHOOK_URL
@@ -43,6 +44,8 @@ services:
         value: admin  # Thay tên user nếu muốn
       - key: N8N_BASIC_AUTH_PASSWORD
         generateValue: true  # Render tự tạo mật khẩu
+      - key: NODE_VERSION  # ← THÊM: Fix lỗi Node.js nếu có
+        value: 18.17.0  # Phiên bản hỗ trợ n8n
 
 databases:
   - name: n8n-db
