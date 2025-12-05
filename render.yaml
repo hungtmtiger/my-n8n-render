@@ -41,11 +41,11 @@ services:
       - key: N8N_BASIC_AUTH_ACTIVE
         value: true
       - key: N8N_BASIC_AUTH_USER
-        value: admin  # Thay bằng tên user bạn muốn
+        value: admin  # Thay tên user nếu muốn
       - key: N8N_BASIC_AUTH_PASSWORD
-        generateValue: true  # Render tự tạo mật khẩu
+        generateValue: true  # Render tự tạo mật khẩu mạnh
 
-  - type: pgsql  # ← ĐÚNG: pgsql cho Postgres DB
-    name: n8n-db
-    plan: free
+databases:
+  - name: n8n-db
+    plan: free  # Free tier (90-day trial)
     region: oregon
