@@ -41,11 +41,11 @@ services:
       - key: N8N_BASIC_AUTH_ACTIVE
         value: true
       - key: N8N_BASIC_AUTH_USER
-        value: admin           # đổi thành tên bạn muốn
+        value: admin  # Đổi nếu muốn
       - key: N8N_BASIC_AUTH_PASSWORD
-        generateValue: true    # Render tự tạo mật khẩu mạnh
+        generateValue: true  # Render tự tạo
 
-  - type: pgsql
+  - type: postgres  # ← SỬA Ở ĐÂY: postgres thay vì pgsql
     name: n8n-db
     plan: free
     region: oregon
